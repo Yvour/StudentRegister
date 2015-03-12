@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @student_group.name
+%p
+  %b Course:
+  = @student_group.course
+
+= link_to 'Edit', edit_student_group_path(@student_group)
+\|
+= link_to 'Back', student_groups_path

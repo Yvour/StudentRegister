@@ -1,0 +1,29 @@
+%h1 Listing grades
+
+%table
+  %thead
+    %tr
+      %th Student
+      %th Semester
+      %th Discipline
+      %th Grade value
+      %th Grade value
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @grades.each do |grade|
+      %tr
+        %td= grade.student
+        %td= grade.semester
+        %td= grade.discipline
+        %td= grade.grade_value
+        %td= grade.grade_value
+        %td= link_to 'Show', grade
+        %td= link_to 'Edit', edit_grade_path(grade)
+        %td= link_to 'Destroy', grade, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Grade', new_grade_path

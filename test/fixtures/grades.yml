@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 
+  semester_id: 
+  discipline_id: 
+  grade_value: 
+  grade_value: 
+
+two:
+  student_id: 
+  semester_id: 
+  discipline_id: 
+  grade_value: 
+  grade_value: 

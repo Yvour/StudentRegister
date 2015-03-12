@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: ruby_development_studentregister
+  pool: 5
+  username: ruby
+  password: rubyforever

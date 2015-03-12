@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Student:
+  = @grade.student
+%p
+  %b Semester:
+  = @grade.semester
+%p
+  %b Discipline:
+  = @grade.discipline
+%p
+  %b Grade value:
+  = @grade.grade_value
+%p
+  %b Grade value:
+  = @grade.grade_value
+
+= link_to 'Edit', edit_grade_path(@grade)
+\|
+= link_to 'Back', grades_path

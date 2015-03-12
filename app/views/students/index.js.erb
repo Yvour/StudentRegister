@@ -1,0 +1,7 @@
+
+
+$('.students').append('<%= j render @students %>').siblings('#load_more_students').find("button").hide().siblings('form').show();
+
+<% unless @students.next_page %>
+    $('#load_more_students').remove();
+<% end %>

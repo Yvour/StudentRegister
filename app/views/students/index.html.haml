@@ -1,0 +1,48 @@
+%h1 Listing students
+%div
+  %input{:type=>'text', :id=>'search', :name=>'search' }
+  %input{:type=>'text', :id=>'offset', :name=>'offset', :value=>'0'}
+  %button{:id=>'next'} Дальше
+  %button{:id=>'prev'} Назад
+%div
+  %label Фамилия
+  %input{:type=>'text', :id=>'last_name', :name=>'last_name', :value=>'Петров'}
+  %label Курс
+  %input{:type=>'text', :id=>'course', :name=>'course', :value=>'1'}  
+  %label Балл, от
+  %input{:type=>'text', :id=>'grade_value_from', :name=>'grade_value_from', :value=>'0'}
+  %label Балл, от
+  %input{:type=>'text', :id=>'grade_value_to', :name=>'grade_value_to', :value=>'0'}
+  %button{:id=>'search1'} Поиск по имени + мин. и макс. баллу.
+%div  
+
+%table{:id=>'student_table'}
+  %thead
+    %tr
+
+      %th First name value
+      %th Last name value
+      %th Birthdate
+      %th Email
+      %th Registration time
+      %th Registration
+      %th Gradess
+      %th
+      %th
+      
+  %tbody{:id=>'student_table_tbody'}
+    - @students.each do |student|
+      %tr
+
+        %td= student.first_name_value
+        %td= student.last_name_value
+        %td= student.birthdate
+        %td= student.email
+        %td= student.registration_time
+        %td= student.registration_ip
+        %td= "оценки"
+
+
+%br
+/= will_paginate @students
+= link_to 'New Student', new_student_path

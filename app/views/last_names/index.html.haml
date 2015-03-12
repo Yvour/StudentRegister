@@ -1,0 +1,21 @@
+%h1 Listing last_names
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @last_names.each do |last_name|
+      %tr
+        %td= last_name.name
+        %td= link_to 'Show', last_name
+        %td= link_to 'Edit', edit_last_name_path(last_name)
+        %td= link_to 'Destroy', last_name, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Last name', new_last_name_path

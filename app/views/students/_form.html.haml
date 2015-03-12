@@ -1,0 +1,31 @@
+= simple_form_for @student do |f|
+  - if @student.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@student.errors.count, "error")} prohibited this student from being saved:"
+      %ul
+        - @student.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :first_name_value
+    = f.text_field :first_name_value
+  .field
+    = f.label :last_name_value
+    = f.text_field :last_name_value
+  .field
+    = f.label :student_group
+    = f.association :student_group, :item_wrapper_class=>'StudentGroup'
+  .field
+    = f.label :birthdate
+    = f.date_select :birthdate
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :registration_time
+    = f.datetime_select :registration_time
+  .field
+    = f.label :registration_ip
+    = f.text_field :registration_ip
+  .actions
+    = f.submit 'Save'
