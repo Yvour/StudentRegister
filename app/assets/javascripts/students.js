@@ -15,6 +15,32 @@ function search() {
 
 };
 
+
+Disciplines = {}
+Semesters = {}
+
+function loadDisciplines()
+{
+           url = "http://localhost:3000/disciplines.json";
+           $.getJSON(url, function(data) {
+                     $.each(data, function(i, discipline){
+                               Disciplines[discipline.id] = discipline.name;
+                     });
+           })
+           
+}
+function loadSemesters()
+{
+           url = "http://localhost:3000/semesters.json";
+           $.getJSON(url, function(data) {
+                     $.each(data, function(i, Semester){
+                               Semesters[Semester.id] = Semester.name;
+                     });
+           })
+           
+}
+
+
 function search1(last_name, min_grade, max_grade, offset) {
 
           url = "http://localhost:3000/search1/" + last_name + "/" + min_grade + '/' + max_grade + '/' + offset + '.json';
@@ -34,7 +60,8 @@ function search1(last_name, min_grade, max_grade, offset) {
                               text0 += td(student.email);
                               text0 += td(student.registration_time);
                               text0 += td(student.registration_ip);
-                              text0 += td('<div class = "grades" id = "otzenka'+student.id+'" style = "border: 1px solid blue;" data-grades = ' + JSON.stringify(student.grades, '"', '\"') + '>Оценки</div>');
+                             // alert('land = ' + JSON.stringify(student.grades).replace(/'/g, "\\'"));
+                              text0 += td('<div class = "grades" id = "otzenka'+student.id+'" style = "border: 1px solid blue;" data-grades = ' + JSON.stringify(student.grades).replace(/'/g, "\\'") + '>Оценки</div>');
                               text0 += '</tr>';
                               $('#student_table > tbody').append(text0);
                              
@@ -46,13 +73,24 @@ function search1(last_name, min_grade, max_grade, offset) {
                         
 
                               if ($(this).html() == 'Оценки') {
-                                        alert ($(this).data('grades'));
-                                        alert($.parseJSON($(this).data('grades')));
-                                        var grades = $(this).data('grades');
-                                        var obj = JSON.parse( $(this).data('grades'));
-                                        if (obj.size>0) alert(1);
-                                        else
-                                        alert(0);
+                                        grades =  JSON.parse( $(this).attr('data-grades') );
+                                       // alert(grades);
+                                        
+                                        $(this).append('<table><tr><td>Семестр</td><td>Дисциплина</td><td>Оценка</td></tr>');
+                                        for (var i = 0; i< grades.length; i++)
+                                        {
+                                                  //alert('i=' + i +';'+grades[i].discipline_id + ';' + grades[i].student_id + ';' + grades[i].semester_id + ';' + grades[i].grade_value);
+                                                  var txt  = '<tr>'
+                                                  txt += td(Semesters[grades[i].semester_id]);
+                                                 // $(this).append(td(grades[i].student_id));
+                                                  txt +=td(Disciplines[grades[i].discipline_id]);
+                                                  txt +=td(grades[i].grade_value);
+                                                  txt +='</tr>';
+                                                  $(this).children('table').children('tbody').append(txt);
+                                        };
+                                       // $(this).append('</table>');
+                                        
+                             
 
                                     
                               } else {$(this).html('Оценки');};
@@ -63,6 +101,9 @@ function search1(last_name, min_grade, max_grade, offset) {
 
 
 $(document).ready(function() {
+          loadDisciplines();
+          loadSemesters();
+          
 
           $('#next').on('click', function() {
                     var offset = $('#offset').val();
