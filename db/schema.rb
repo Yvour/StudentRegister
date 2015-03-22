@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310193400) do
+ActiveRecord::Schema.define(version: 20150322131522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,19 @@ ActiveRecord::Schema.define(version: 20150310193400) do
   add_index "grades", ["grade_value"], name: "index_grades_on_grade_value", using: :btree
   add_index "grades", ["semester_id"], name: "index_grades_on_semester_id", using: :btree
   add_index "grades", ["student_id"], name: "index_grades_on_student_id", using: :btree
+
+  create_table "last_name_suffixes", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "last_name_suffixes", ["name"], name: "index_last_name_suffixes_on_name", unique: true, using: :btree
+
+  create_table "last_name_suffixes_names", id: false, force: :cascade do |t|
+    t.integer "last_name_id",        null: false
+    t.integer "last_name_suffix_id", null: false
+  end
 
   create_table "last_names", force: :cascade do |t|
     t.string   "name"

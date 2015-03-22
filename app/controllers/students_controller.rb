@@ -10,11 +10,16 @@ class StudentsController < ApplicationController
 
 
   def search1
-    last_name0 = params[:last_name].to_s;
-    min_grade0 = params[:min_grade].to_i;
-    max_grade0 = params[:max_grade].to_i;
-    offset0    = params[:offset].to_i;
-    @last_name_ids = LastName.where("name like ?", '%' + last_name0 + '%').ids.map{|i| i.to_i}
+    params_str = params[:params]
+    params_obj = JSON.parse(params_str)
+    last_name0 = params_obj['last_name'];
+    min_grade0 = params_obj['min_grade']
+    max_grade0 = params_obj['max_grade']
+    offset0    = params_obj['offset']
+
+    
+    
+    @last_name_ids = LastNameSuffix.where("name like ?",  last_name0 + '%').map{ | suffix | suffix.last_name_ids }.uniq
     if @last_name_ids.size > 0
       @students = Student.all.where(last_name_id: @last_name_ids).order('id').
       where("((average_grade_value between #{min_grade0} and #{max_grade0}) or (average_grade_value is null))"). 

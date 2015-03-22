@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :last_name_suffixes
+
   resources :grades
 
   resources :students
   
  
- match 'search1/:last_name/:min_grade/:max_grade/:offset', to: 'students#search1', via: [:get], as: 'search1'
+ match 'search1/:params', to: 'students#search1', via: [:get], as: 'search1'
 
   resources :first_names
 

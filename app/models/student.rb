@@ -8,8 +8,6 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :email
   validates :first_name_value, :last_name_value, :email, :birthdate, :registration_time, :registration_ip,
    { 
-                                allow_blank: false,
-                                allow_nil: false,
                                 presence: true
                                 }
 # Группы проверяются отдельно.                          
@@ -23,12 +21,12 @@ class Student < ActiveRecord::Base
 
 
     def set_name_id
-      puts "setting"
-      name = FirstName.where(name: self.first_name_value).first;
-      name = FirstName.create(name: self.first_name_value) if name.nil?
+      puts "setting " + self.first_name_value + ' ' + self.last_name_value
+      name = FirstName.find_or_create_by(name: self.first_name_value);
+
       self.first_name = name
-      name = LastName.where(name: self.last_name_value).first;
-      name = LastName.create(name: self.last_name_value) if name.nil?
+      name = LastName.find_or_create_by(name: self.last_name_value);
+
       self.last_name = name
       
     end
